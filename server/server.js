@@ -2,14 +2,27 @@ const { ApolloServer } = require('apollo-server')
 const { typeDefs } = require('./typeDefs')
 const { resolvers } = require('./resolvers')
 
-const PORT = 3001
+const mongoose = require('mongoose')
+const config = require('config')
+const port = config.get('port')
 
 const startServer = async () => {
-  const server = new ApolloServer({ typeDefs, resolvers })
+  try {
+    const server = new ApolloServer({ typeDefs, resolvers })
+    await mongoose.connect(config.get('db'), {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useFindAndModify: false,
+    })
 
-  server.listen(PORT, () => {
-    console.log(`Apollo server is running on port: ${PORT}`)
-  })
+    console.log('✔️  Database connected!')
+
+    server.listen({ port }).then(() => {
+      console.log(`Apollo server is running on port: ${port}!`)
+    })
+  } catch (err) {
+    console.log(`❌  Something went wrong: \n ${err}`)
+  }
 }
 
 startServer()

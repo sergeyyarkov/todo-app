@@ -1,5 +1,7 @@
-const { Book } = require('./Book')
+const Todo = require('./Todo')
+const Category = require('./Category')
 
 module.exports = {
-  Book,
+  Todo,
+  Category,
 }

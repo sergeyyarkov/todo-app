@@ -1,5 +1,7 @@
-const { bookType } = require('./bookType')
+const { todoType } = require('./todoType')
+const { categoryType } = require('./categoryType')
 
 module.exports = {
-  bookType,
+  todoType,
+  categoryType,
 }

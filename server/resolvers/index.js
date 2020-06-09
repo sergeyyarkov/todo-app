@@ -1,6 +1,7 @@
-const { bookResolvers } = require('./bookResolvers')
+const { todoResolvers } = require('./todoResolvers')
+const { categoryResolvers } = require('./categoryResolvers')
 
-const resolvers = [bookResolvers]
+const resolvers = [todoResolvers, categoryResolvers]
 
 module.exports = {
   resolvers,

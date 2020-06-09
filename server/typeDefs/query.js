@@ -2,7 +2,10 @@ const { gql } = require('apollo-server')
 
 const query = gql`
   type Query {
-    books: [Book]
+    todos: [Todo]
+    todo(id: ID!): Todo
+    categories: [Category]
+    category(id: ID!): Category
   }
 `
 
