@@ -10,7 +10,7 @@ npm start
 
 ```json
 {
-  "db": "mongodb://localhost:27017", // db url
-  "port": 3001 // server port
+  "db": "mongodb://localhost:27017",
+  "port": 3001
 }
 ```
