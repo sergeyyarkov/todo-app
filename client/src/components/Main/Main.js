@@ -16,9 +16,6 @@ const useStyles = makeStyles((theme) => ({
   alarmIcon: {
     marginRight: 10
   },
-  card: {
-    margin: 10,
-  },
   cardActions: {
     justifyContent: 'flex-end'
   },
@@ -63,10 +60,15 @@ const Main = () => {
       <Fab className={classes.fab} color="secondary" size='large' aria-label="add">
         <AddIcon />
       </Fab> 
-      <Grid container>       
+      <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Typography>
+              Создавайте, редактируйте или удаляйте свои повседневные задачи.
+            </Typography> 
+          </Grid>      
           {[1,2,3,4,5,6].map((e) => 
             <Grid item xs={12} md={4} lg={3}>
-              <Card className={classes.card}>
+              <Card>
               <CardContent>
                 <Typography className={classes.cardCategoryHeading} color="textSecondary" gutterBottom>
                   Категория 1
