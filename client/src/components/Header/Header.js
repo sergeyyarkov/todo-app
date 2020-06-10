@@ -39,11 +39,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Header = (props) => {
-  const { window } = props;
+const Header = ({ window }) => {
   const classes = useStyles();
   const theme = useTheme();
-
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
@@ -66,7 +64,7 @@ const Header = (props) => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h1" noWrap>
-            Todo app
+            Список дел
           </Typography>
         </Toolbar>
       </AppBar>

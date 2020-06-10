@@ -22,13 +22,13 @@ const useStyles = makeStyles((theme) => ({
 const Drawer = () => {
   const classes = useStyles()
   const [selectedIndex, setSelectedIndex] = React.useState(0)
-  const [isListOpen, setListOpen] = React.useState(false)
+  const [isListOpen, setIsListOpen] = React.useState(false)
 
   const listItemSelectedHandler = (e, index) => {
     setSelectedIndex(index)
-    if (index === 1) setListOpen(!isListOpen)
+    if (index === 1) setIsListOpen(!isListOpen)
   }
-
+  
   return (
     <>
     <div className={classes.toolbar} />
