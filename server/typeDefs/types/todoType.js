@@ -4,9 +4,11 @@ const todoType = gql`
   type Todo {
     id: ID
     title: String
+    description: String
     createdAt: String
     updatedAt: String
     status: String
+    deadline: String
     categoryId: String
     category: Category
   }

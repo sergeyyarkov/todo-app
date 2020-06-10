@@ -6,12 +6,14 @@ const todoResolvers = {
     todo: (_, { id }) => Todo.findById(id),
   },
   Mutation: {
-    createTodo: (_, { title, categoryId }) => {
+    createTodo: (_, { title, description, deadline, categoryId }) => {
       const todo = new Todo({
         title,
+        description,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
         status: 'open',
+        deadline,
         categoryId,
       })
       return todo.save()
@@ -20,7 +22,7 @@ const todoResolvers = {
       const deletedTodo = await Todo.findByIdAndRemove(id)
       return deletedTodo
     },
-    updateTodo: (_, { id, title, status, categoryId }) => Todo.findByIdAndUpdate(id, { $set: { title, updatedAt: new Date().toISOString(), status, categoryId } }, { new: true }),
+    updateTodo: (_, { id, title, description, status, deadline, categoryId }) => Todo.findByIdAndUpdate(id, { $set: { title, description, updatedAt: new Date().toISOString(), status, deadline, categoryId } }, { new: true }),
   },
   Todo: {
     category: ({ categoryId }) => Category.findById(categoryId),
