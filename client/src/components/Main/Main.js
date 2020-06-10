@@ -63,34 +63,36 @@ const Main = () => {
       <Fab className={classes.fab} color="secondary" size='large' aria-label="add">
         <AddIcon />
       </Fab> 
-      <Grid container>     
-        <Grid item xs={12} md={4}>
-          <Card className={classes.card}>
-            <CardContent>
-              <Typography className={classes.cardCategoryHeading} color="textSecondary" gutterBottom>
-                Категория 1
-                <span className={classes.cardAlarm}>
-                  <AlarmIcon className={classes.alarmIcon} color='action' />
-                  18:00
-                </span>
-              </Typography>
-              <Typography className={classes.cardHeading} variant="h5" component="h2">
-                Todo 1
-              </Typography>
-              <Typography variant="body2" component="p">
-                But I must explain to you how all this mistaken idea of denouncing pleasure and praising.
-              </Typography>
-            </CardContent>
-            <CardActions className={classes.cardActions}>
-              <IconButton aria-label="delete">
-                <EditIcon />
-              </IconButton>
-              <IconButton aria-label="delete" color='secondary'>
-                <DeleteIcon />
-              </IconButton>
-            </CardActions>
-          </Card> 
-        </Grid>
+      <Grid container>       
+          {[1,2,3,4,5,6].map((e) => 
+            <Grid item xs={12} md={4} lg={3}>
+              <Card className={classes.card}>
+              <CardContent>
+                <Typography className={classes.cardCategoryHeading} color="textSecondary" gutterBottom>
+                  Категория 1
+                  <span className={classes.cardAlarm}>
+                    <AlarmIcon className={classes.alarmIcon} color='action' />
+                    18:00
+                  </span>
+                </Typography>
+                <Typography className={classes.cardHeading} variant="h5" component="h2">
+                  Todo 1
+                </Typography>
+                <Typography variant="body2" component="p">
+                  But I must explain to you how all this mistaken idea of denouncing pleasure and praising.
+                </Typography>
+              </CardContent>
+              <CardActions className={classes.cardActions}>
+                <IconButton aria-label="delete">
+                  <EditIcon />
+                </IconButton>
+                <IconButton aria-label="delete" color='secondary'>
+                  <DeleteIcon />
+                </IconButton>
+              </CardActions>
+            </Card>
+          </Grid>
+          )} 
       </Grid>
       </main>
   )
