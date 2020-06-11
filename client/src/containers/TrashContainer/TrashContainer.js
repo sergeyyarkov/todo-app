@@ -1,5 +1,5 @@
 import React from 'react';
-import Cards from '../../components/Cards/Cards'
+import Todos from '../../components/Todos/Todos'
 import { Grid, Typography } from '@material-ui/core'
 
 const Trash = () => {
@@ -10,7 +10,7 @@ const Trash = () => {
           Здесь находятся ваши недавно удаленные записи, вы можете их легко восстановить.
         </Typography> 
       </Grid> 
-      <Cards data={[1,2]} />
+      <Todos data={[1,2]} />
     </Grid>
   )
 }

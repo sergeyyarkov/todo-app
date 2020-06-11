@@ -1,5 +1,5 @@
 import React from 'react';
-import Cards from '../../components/Cards/Cards'
+import Todos from '../../components/Todos/Todos'
 import Fab from '../../components/Fab/Fab'
 import { Grid, Typography } from '@material-ui/core'
 
@@ -12,10 +12,10 @@ const Category = () => {
       <Fab size='large' ariaLabel='add' typeIcon='edit'/>
       <Grid item xs={12}>
         <Typography>
-          Сортируйте свои повседневные задачи используя категории.
+          Сортируйте свои повседневные дела используя категории.
         </Typography> 
       </Grid> 
-      <Cards data={[1,2,3]} />
+      <Todos data={[1,2,3]} />
     </Grid>
   )
 }

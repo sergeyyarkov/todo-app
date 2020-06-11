@@ -23,10 +23,10 @@ const renderIcon = (typeIcon) => {
   }
 }
 
-const FabComponent = ({ typeIcon, color, secondary, size, ariaLabel }) => {
+const FabComponent = ({ typeIcon, color, secondary, size, ariaLabel, handleOpenModal }) => {
   const classes = useStyles()
   return (
-    <Fab className={classes.fab} color={color} size={size} secondary={secondary} aria-label={ariaLabel}>
+    <Fab className={classes.fab} onClick={handleOpenModal} color={color} size={size} secondary={secondary} aria-label={ariaLabel}>
       {renderIcon(typeIcon)}
     </Fab>
   )
