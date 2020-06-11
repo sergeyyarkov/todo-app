@@ -1,31 +1,21 @@
 import React from 'react';
-import { Grid, Typography, Fab } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-import EditIcon from '@material-ui/icons/Edit';
-// import { useParams } from 'react-router-dom'
+import Cards from '../../components/Cards/Cards'
+import Fab from '../../components/Fab/Fab'
+import { Grid, Typography } from '@material-ui/core'
 
-const useStyles = makeStyles((theme) => ({
-  fab: {
-    position: 'fixed',
-    margin: 30,
-    bottom: theme.spacing(2),
-    right: theme.spacing(2),
-  },
-}))
+// import { useParams } from 'react-router-dom'
 
 const Category = () => {
   // const { slug } = useParams()
-  const classes = useStyles()
   return (
     <Grid container spacing={2}>
-      <Fab className={classes.fab} size='large' aria-label="add">
-        <EditIcon />
-      </Fab>
+      <Fab size='large' ariaLabel='add' typeIcon='edit'/>
       <Grid item xs={12}>
         <Typography>
-          {`Сортируйте свои повседневные задачи используя категории.`}
+          Сортируйте свои повседневные задачи используя категории
         </Typography> 
       </Grid> 
+      <Cards data={[1,2,3]} />
     </Grid>
   )
 }

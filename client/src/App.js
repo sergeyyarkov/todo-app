@@ -16,7 +16,6 @@ const App = ({ history }) => {
           <Route history={history} exact path='/category/:slug' component={Category} />
           <Route history={history} exact path='/trash' component={Trash} />
           <Route history={history} exact path='/' component={Todos} />
-          {/* <Route component={NotFound} /> */}
           <Route path='/404' component={NotFound} />
           <Redirect from='*' to='/404' />
         </Switch>

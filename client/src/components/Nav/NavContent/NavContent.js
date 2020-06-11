@@ -1,22 +1,15 @@
 import React from 'react';
-import Divider from '@material-ui/core/Divider';
+import { Link } from 'react-router-dom'
+import MuiLink from '@material-ui/core/Link';
+import { Divider, List, ListItemIcon, ListItemText, Collapse, ListItem, IconButton, Typography, makeStyles } from '@material-ui/core'
+
 import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
 import CategoryIcon from '@material-ui/icons/Category';
 import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import GitHubIcon from '@material-ui/icons/GitHub';
-import Collapse from '@material-ui/core/Collapse'
 import ExpandLess from '@material-ui/icons/ExpandLess'
 import ExpandMore from '@material-ui/icons/ExpandMore'
-import IconButton from '@material-ui/core/IconButton'
-import MuiLink from '@material-ui/core/Link';
-import { Link } from 'react-router-dom'
-import { makeStyles } from '@material-ui/core/styles'
-import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   navHeading: {
