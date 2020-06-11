@@ -12,7 +12,7 @@ const Category = () => {
       <Fab size='large' ariaLabel='add' typeIcon='edit'/>
       <Grid item xs={12}>
         <Typography>
-          Сортируйте свои повседневные задачи используя категории
+          Сортируйте свои повседневные задачи используя категории.
         </Typography> 
       </Grid> 
       <Cards data={[1,2,3]} />

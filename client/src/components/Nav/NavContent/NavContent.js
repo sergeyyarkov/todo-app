@@ -1,4 +1,5 @@
 import React from 'react';
+import Categories from '../../Categories/Categories'
 import { Link } from 'react-router-dom'
 import MuiLink from '@material-ui/core/Link';
 import { Divider, List, ListItemIcon, ListItemText, Collapse, ListItem, IconButton, Typography, makeStyles } from '@material-ui/core'
@@ -86,15 +87,7 @@ const NavContent = ({ history }) => {
       </ListItem>
       <Collapse in={isListOpen.current} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          {[1,2,3].map((e, i) => {
-            return (
-              <Link className={classes.link} key={i} to={`/category/${i}`}>
-                  <ListItem selected={history.location.pathname === `/category/${i}`} button className={classes.nested}>
-                    <ListItemText primary={"Категория " + i} />
-                  </ListItem>
-              </Link>
-            )
-          })}
+          <Categories data={[1,2,3]} history={history} classes={classes} />
           <ListItem className={classes.addCategoryItem}>
             <IconButton aria-label="add">
               <AddIcon />
