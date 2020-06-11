@@ -13,12 +13,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Layout = ({ children }) => {
+const Layout = ({ children, history }) => {
   const classes = useStyles()
 
   return (
     <div className={classes.layout}>
-      <Header />
+      <Header history={history} />
       <main className={classes.content}>
         <div className={classes.toolbar} />
         {children} 

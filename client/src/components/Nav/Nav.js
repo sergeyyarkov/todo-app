@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Nav = ({ window, mobileOpen, handleDrawerToggle }) => {
+const Nav = ({ window, mobileOpen, handleDrawerToggle, history }) => {
   const classes = useStyles();
   const theme = useTheme();
   
@@ -40,7 +40,7 @@ const Nav = ({ window, mobileOpen, handleDrawerToggle }) => {
             keepMounted: true,
           }}
         >
-          <NavContent />
+          <NavContent history={history} />
         </Drawer>
       </Hidden>
       <Hidden xsDown implementation="css">
@@ -51,7 +51,7 @@ const Nav = ({ window, mobileOpen, handleDrawerToggle }) => {
           variant="permanent"
           open
         >
-          <NavContent />
+          <NavContent history={history} />
         </Drawer>
       </Hidden>
     </nav>

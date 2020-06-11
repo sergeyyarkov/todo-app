@@ -1,18 +1,30 @@
 import React from 'react'
-//import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { Route, Switch, Redirect, withRouter } from "react-router-dom"
 import Layout from './components/Layout/Layout'
 import Todos from './containers/Todos/Todos'
+import Category from './containers/Category/Category'
+import Trash from './containers/Trash/Trash'
+import NotFound from './containers/NotFound/NotFound'
 import CssBaseLine from '@material-ui/core/CssBaseline'
 
-export default function App() {
+const App = ({ history }) => {
   return (
     <>
       <CssBaseLine />
-      <Layout>
-          <Todos />
+      <Layout history={history}>
+        <Switch>
+          <Route history={history} exact path='/category/:slug' component={Category} />
+          <Route history={history} exact path='/trash' component={Trash} />
+          <Route history={history} exact path='/' component={Todos} />
+          {/* <Route component={NotFound} /> */}
+          <Route path='/404' component={NotFound} />
+          <Redirect from='*' to='/404' />
+        </Switch>
       </Layout>
     </>
   )
 }
+
+export default withRouter(App)
 
 
