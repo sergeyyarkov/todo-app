@@ -37,38 +37,23 @@ const useStyles = makeStyles((theme) => ({
     bottom: theme.spacing(2),
     right: theme.spacing(2),
   },
-  toolbar: theme.mixins.toolbar,
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-  },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
-  pos: {
-    marginBottom: 12,
-  },
 }))
 
-const Main = () => {
+const Todos = () => {
   const classes = useStyles()
   return (
-    <main className={classes.content}>
-      <div className={classes.toolbar} />
+    <Grid container spacing={2}>
       <Fab className={classes.fab} color="secondary" size='large' aria-label="add">
         <AddIcon />
       </Fab> 
-      <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <Typography>
-              Создавайте, редактируйте или удаляйте свои повседневные задачи.
-            </Typography> 
-          </Grid>      
-          {[1,2,3,4,5,6].map((e) => 
-            <Grid item xs={12} md={4} lg={3}>
-              <Card>
+        <Grid item xs={12}>
+          <Typography>
+            Создавайте, редактируйте или удаляйте свои повседневные задачи.
+          </Typography> 
+        </Grid>      
+        {[1,2,3,4,5,6].map((e, i) => 
+          <Grid key={i} item xs={12} md={4} lg={3}>
+            <Card>
               <CardContent>
                 <Typography className={classes.cardCategoryHeading} color="textSecondary" gutterBottom>
                   Категория 1
@@ -94,10 +79,9 @@ const Main = () => {
               </CardActions>
             </Card>
           </Grid>
-          )} 
-      </Grid>
-      </main>
+        )} 
+    </Grid>
   )
 }
 
-export default Main
+export default Todos

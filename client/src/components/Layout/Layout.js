@@ -1,20 +1,28 @@
 import React from 'react';
-import Header from '../Header/Header'
-import Main from '../Main/Main'
+import Header from '../Header/Header';
 import { makeStyles } from '@material-ui/core/styles'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   layout: {
     display: 'flex'
-  }
+  },
+  toolbar: theme.mixins.toolbar,
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+  },
 }))
 
-const Layout = () => {
+const Layout = ({ children }) => {
   const classes = useStyles()
+
   return (
     <div className={classes.layout}>
       <Header />
-      <Main />
+      <main className={classes.content}>
+        <div className={classes.toolbar} />
+        {children} 
+      </main>
     </div>
   )
 }
