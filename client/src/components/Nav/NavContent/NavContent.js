@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   author: {
     display: 'flex',
     alignItems: 'center',
-    marginTop: 5
+    marginTop: 10
   },
   nested: {
     paddingLeft: theme.spacing(4)
@@ -43,15 +43,15 @@ const useStyles = makeStyles((theme) => ({
 
 const NavContent = ({ history }) => {
   const classes = useStyles()
-  const [isListOpen, setIsListOpen] = React.useState({
+  const [collapseInfo, setCollapseInfo] = React.useState({
     idCollapse: 0,
-    current: false,
+    isCollapseOpen: false,
   })
 
   const listItemSelectedHandler = (e, index) => {
-    if (index === 1) setIsListOpen({
-      idCollapse: 1,
-      current: !isListOpen.current
+    setCollapseInfo({
+      idCollapse: index,
+      isCollapseOpen: !collapseInfo.isCollapseOpen
     })
   }
 
@@ -83,9 +83,9 @@ const NavContent = ({ history }) => {
           <CategoryIcon />
         </ListItemIcon>
         <ListItemText primary={'Категории'} />
-        {isListOpen.current ? <ExpandLess /> : <ExpandMore />}
+        {collapseInfo.isCollapseOpen ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
-      <Collapse in={isListOpen.current} timeout="auto" unmountOnExit>
+      <Collapse in={collapseInfo.isCollapseOpen} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           <Categories data={[1,2,3]} history={history} classes={classes} />
           <ListItem className={classes.addCategoryItem}>

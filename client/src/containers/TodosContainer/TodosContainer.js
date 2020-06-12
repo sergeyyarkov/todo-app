@@ -1,12 +1,12 @@
 import React from 'react';
 import Todos from '../../components/Todos/Todos'
-import TodosModal from '../../components/Todos/TodoModal/TodosModal'
+import CreateTodoModal from '../../components/Modals/Todo/CreateTodoModal'
 import { Typography, Grid } from '@material-ui/core'
 
 const TodosContainer = () => {
   return (
     <>
-      <TodosModal />
+      <CreateTodoModal />
       <Grid container spacing={2}>
           <Grid item xs={12}>
             <Typography>

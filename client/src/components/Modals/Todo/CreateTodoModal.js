@@ -1,5 +1,5 @@
 import React from 'react';
-import Fab from '../../../components/Fab/Fab'
+import Fab from '../../Fab/Fab'
 import { Dialog, DialogContent, DialogTitle, DialogActions, Button, TextField, Select, MenuItem, InputLabel, FormControl, makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles(() => ({
