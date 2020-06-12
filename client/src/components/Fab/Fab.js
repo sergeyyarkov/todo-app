@@ -6,6 +6,7 @@ import EditIcon from '@material-ui/icons/Edit';
 const useStyles = makeStyles((theme) => ({
   fab: {
     position: 'fixed',
+    zIndex: 9999,
     margin: 30,
     bottom: theme.spacing(2),
     right: theme.spacing(2),

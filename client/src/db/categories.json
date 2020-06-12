@@ -1,0 +1,33 @@
+[{
+  "_id": {
+    "$oid": "5ede6bbafed78043ac0339ff"
+  },
+  "title": "Category 1",
+  "description": "some description",
+  "updatedAt": "2020-04-04",
+  "createdAt": "2020-01-01"
+},{
+  "_id": {
+    "$oid": "5ede6bbafed78043ac033a00"
+  },
+  "title": "Category 2",
+  "description": "some description",
+  "updatedAt": "2020-04-04",
+  "createdAt": "2020-01-01"
+},{
+  "_id": {
+    "$oid": "5ede6bbafed78043ac033a01"
+  },
+  "title": "Category 3",
+  "description": "some description",
+  "updatedAt": "2020-04-04",
+  "createdAt": "2020-01-01"
+},{
+  "_id": {
+    "$oid": "5ede83c823d3141d80145f2b"
+  },
+  "title": "upd category title",
+  "description": "upd category description",
+  "createdAt": "2020-06-08T18:30:32.811Z",
+  "updatedAt": "2020-06-08T18:32:34.962Z"
+}]

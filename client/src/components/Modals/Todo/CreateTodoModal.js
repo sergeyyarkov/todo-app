@@ -1,31 +1,18 @@
 import React from 'react';
-import Fab from '../../Fab/Fab'
-import { Dialog, DialogContent, DialogTitle, DialogActions, Button, TextField, Select, MenuItem, InputLabel, FormControl, makeStyles } from '@material-ui/core'
+import useStyles from './styles'
+import { Dialog, DialogContent, DialogTitle, DialogActions, Button, TextField, Select, MenuItem, InputLabel, FormControl } from '@material-ui/core'
+import AddIcon from '@material-ui/icons/Add'
 
-const useStyles = makeStyles(() => ({
-  dialog: {
-    width: 500
-  },
-  form: {
-    display: 'flex',
-    flexDirection: 'column'
-  },
-  textField: {
-    margin: '10px 0px'
-  },
-  selectField: {
-    margin: '10px 0px'
-  }
-}))
+import categories from '../../../db/categories.json'
 
-const TodosModal = () => {
+const CreateTodoModal = ({ isModalOpen, handleCloseModal }) => {
   const classes = useStyles()
-  const [isModalOpen, setIsModalOpen] = React.useState(false)
-  const [selectedCategory, setSelectedCategory] = React.useState('');
-
-  const handleSelectChange = e => {
-    setSelectedCategory(e.target.value);
-  };
+  const [fieldsData, setFieldsData] = React.useState({
+    title: '',
+    description: '',
+    category: '',
+    deadline: ''
+  })
 
   const handleFormSubmit = e => {
     e.preventDefault()
@@ -37,23 +24,30 @@ const TodosModal = () => {
       deadline: elements.deadline.value
     }
     handleCloseModal()
-    console.log(data)
+    setFieldsData({
+      title: '',
+      description: '',
+      category: '',
+      deadline: ''
+    })
+    console.log('Request on create todo:', data)
   }
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true)
-  }
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false)
+  const handleFieldChange = e => {
+    const target = e.target 
+    setFieldsData({
+      title: target.name === 'title' ? target.value : fieldsData.title,
+      description: target.name === 'description' ? target.value : fieldsData.description,
+      category: target.name === 'category' ? target.value : fieldsData.category,
+      deadline: target.name === 'deadline' ? target.value : fieldsData.deadline
+    })
   }
 
   return (
     <div>
-      <Fab typeIcon='add' color="secondary" size='large' ariaLabel="add" handleOpenModal={handleOpenModal} />
       <Dialog fullWidth={true} open={isModalOpen} onClose={handleCloseModal} color='default'>
         <DialogTitle> 
-          Добавить новую запись
+          <AddIcon className={classes.headingIcon} /> Добавить новую запись
         </DialogTitle>
         <DialogContent>
           <form onSubmit={handleFormSubmit} noValidate autoComplete="off" className={classes.form}>
@@ -64,6 +58,8 @@ const TodosModal = () => {
               placeholder='Название вашей записи'
               variant="outlined"
               className={classes.textField}
+              value={fieldsData.title}
+              onChange={handleFieldChange}
               InputLabelProps={{
                 shrink: true,
               }}
@@ -75,6 +71,8 @@ const TodosModal = () => {
               placeholder='Описание'
               variant="outlined"
               className={classes.textField}
+              value={fieldsData.description}
+              onChange={handleFieldChange}
               InputLabelProps={{
                 shrink: true,
               }}
@@ -85,14 +83,11 @@ const TodosModal = () => {
                 labelId="category-outlined-label"
                 id="demo-simple-select-outlined"
                 name='category'
-                value={selectedCategory}
-                onChange={handleSelectChange}
+                value={fieldsData.category}
+                onChange={handleFieldChange}
                 label="Категория"
               >
-                <MenuItem value=""><em>None</em></MenuItem>
-                <MenuItem value='Категория 1'>Категория 1</MenuItem>
-                <MenuItem value='Категория 2'>Категория 2</MenuItem>
-                <MenuItem value='Категория 3'>Категория 3</MenuItem>
+                {categories.map((category, i) => <MenuItem key={i} value={category._id.$oid}>{category._id.$oid}</MenuItem>)}
               </Select>
             </FormControl>
             <TextField
@@ -101,6 +96,8 @@ const TodosModal = () => {
               variant="outlined"
               type="datetime-local"
               className={classes.textField}
+              value={fieldsData.deadline}
+              onChange={handleFieldChange}
               InputLabelProps={{
                 shrink: true,
               }}
@@ -120,4 +117,4 @@ const TodosModal = () => {
   )
 }
 
-export default TodosModal
+export default CreateTodoModal

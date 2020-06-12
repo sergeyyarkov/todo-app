@@ -3,6 +3,8 @@ import Todos from '../../components/Todos/Todos'
 import Fab from '../../components/Fab/Fab'
 import { Grid, Typography } from '@material-ui/core'
 
+import todos from '../../db/todos.json'
+
 // import { useParams } from 'react-router-dom'
 
 const Category = () => {
@@ -14,8 +16,9 @@ const Category = () => {
         <Typography>
           Сортируйте свои повседневные дела используя категории.
         </Typography> 
-      </Grid> 
-      <Todos data={[1,2,3]} />
+      </Grid>
+       {/* Здесь берем значение slug из query и передаем полученные данные в prop data !!!!  */}
+      <Todos data={todos} />
     </Grid>
   )
 }

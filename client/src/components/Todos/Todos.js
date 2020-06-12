@@ -2,6 +2,7 @@ import React from 'react';
 import UpdateTodoModal from '../Modals/Todo/UpdateTodoModal'
 import { Card, CardActions, CardContent, Typography, Grid, IconButton, makeStyles } from '@material-ui/core'
 
+import RestoreIcon from '@material-ui/icons/Restore';
 import DeleteIcon from '@material-ui/icons/Delete'
 import AlarmIcon from '@material-ui/icons/Alarm';
 import EditIcon from '@material-ui/icons/Edit';
@@ -33,33 +34,56 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Todos = ({ data }) => {
+const Todos = ({ data, fromTrashContainer }) => {
   const classes = useStyles()
+  const [selectedTodo, setSelectedTodo] = React.useState({
+    title: '',
+    description: '',
+    category: '',
+    deadline: ''
+  })
+  const [isModalOpen, setIsModalOpen] = React.useState(false)
+  const handleOpenModal = todo => {
+    setSelectedTodo({
+      title: todo.title,
+      description: todo.description,
+      category: todo.categoryId,
+      deadline: todo.deadline
+    })
+    setIsModalOpen(true)
+  }
+  const handleCloseModal = () => setIsModalOpen(false)
+
   return (
     <>
-      {/* <UpdateTodoModal /> */}
-      {data.map((e, i) => 
+      {!fromTrashContainer ? <UpdateTodoModal isModalOpen={isModalOpen} handleOpenModal={handleOpenModal} handleCloseModal={handleCloseModal} selectedTodo={selectedTodo} setSelectedTodo={setSelectedTodo} /> : null}
+      {data.map((todo, i) => 
         <Grid key={i} item xs={12} md={4} lg={3}>
           <Card>
             <CardContent>
               <Typography className={classes.cardCategoryHeading} color="textSecondary" gutterBottom>
-                Категория 1
+                CategoryId: {todo.categoryId}
                 <span className={classes.cardAlarm}>
                   <AlarmIcon className={classes.alarmIcon} color='action' />
-                  18:00
+                  {todo.deadline}
                 </span>
               </Typography>
               <Typography className={classes.cardHeading} variant="h5" component="h2">
-                Todo 1
+                {todo.title}
               </Typography>
               <Typography variant="body2" component="p">
-                But I must explain to you how all this mistaken idea of denouncing pleasure and praising.
+                {todo.description}
               </Typography>
             </CardContent>
             <CardActions className={classes.cardActions}>
-              <IconButton aria-label="update">
-                <EditIcon />
-              </IconButton>
+              {!fromTrashContainer 
+                ? <IconButton onClick={() => handleOpenModal(todo)} aria-label="update">
+                    <EditIcon />
+                  </IconButton> 
+                : <IconButton aria-label="restore">
+                    <RestoreIcon />
+                  </IconButton> 
+               }
               <IconButton aria-label="delete" color='secondary'>
                 <DeleteIcon />
               </IconButton>
