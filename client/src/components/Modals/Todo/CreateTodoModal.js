@@ -1,5 +1,5 @@
 import React from 'react';
-import useStyles from './styles'
+import useStyles from '../styles'
 import { Dialog, DialogContent, DialogTitle, DialogActions, Button, TextField, Select, MenuItem, InputLabel, FormControl } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
 

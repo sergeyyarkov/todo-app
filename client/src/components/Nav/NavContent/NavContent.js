@@ -12,6 +12,8 @@ import GitHubIcon from '@material-ui/icons/GitHub';
 import ExpandLess from '@material-ui/icons/ExpandLess'
 import ExpandMore from '@material-ui/icons/ExpandMore'
 
+import categories from '../../../db/categories.json'
+
 const useStyles = makeStyles((theme) => ({
   navHeading: {
     padding: '10px 0px 10px 16px',
@@ -41,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const NavContent = ({ history }) => {
+const NavContent = ({ history, handleOpenModal }) => {
   const classes = useStyles()
   const [collapseInfo, setCollapseInfo] = React.useState({
     idCollapse: 0,
@@ -57,55 +59,55 @@ const NavContent = ({ history }) => {
 
   return (
     <>
-    <div className={classes.navHeading}>
-      <Typography>
-        <MuiLink style={{ color: 'rgba(255, 255, 255, 0.7)' }} href="#" variant='h1'>
-          Todo App
-        </MuiLink>
-        <br />
-        <span className={classes.author} href="#">
-          Github: <MuiLink href='https://github.com/sergeyyarkov/todo-app' target='_blank'><GitHubIcon className={classes.githubIcon} color='action' fontSize='small' /></MuiLink>
-        </span>
-      </Typography>
-    </div>
-    <Divider />
-    <List>
-      <Link className={classes.link} to='/'>
-        <ListItem selected={history.location.pathname === '/'} button> 
-          <ListItemIcon>
-            <FormatListBulletedIcon />
-          </ListItemIcon>
-          <ListItemText primary={'Список дел'} />
-        </ListItem>
-      </Link>
-      <ListItem onClick={(e) => listItemSelectedHandler(e, 1)} button> 
-        <ListItemIcon>
-          <CategoryIcon />
-        </ListItemIcon>
-        <ListItemText primary={'Категории'} />
-        {collapseInfo.isCollapseOpen ? <ExpandLess /> : <ExpandMore />}
-      </ListItem>
-      <Collapse in={collapseInfo.isCollapseOpen} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <Categories data={[1,2,3]} history={history} classes={classes} />
-          <ListItem className={classes.addCategoryItem}>
-            <IconButton aria-label="add">
-              <AddIcon />
-            </IconButton>
-          </ListItem>
-        </List>
-      </Collapse>
+      <div className={classes.navHeading}>
+        <Typography>
+          <MuiLink style={{ color: 'rgba(255, 255, 255, 0.7)' }} href="#" variant='h1'>
+            Todo App
+          </MuiLink>
+          <br />
+          <span className={classes.author} href="#">
+            Github: <MuiLink href='https://github.com/sergeyyarkov/todo-app' target='_blank'><GitHubIcon className={classes.githubIcon} color='action' fontSize='small' /></MuiLink>
+          </span>
+        </Typography>
+      </div>
       <Divider />
-      <Link className={classes.link} to='/trash'>
-        <ListItem selected={history.location.pathname === '/trash'} button> 
+      <List>
+        <Link className={classes.link} to='/'>
+          <ListItem selected={history.location.pathname === '/'} button> 
+            <ListItemIcon>
+              <FormatListBulletedIcon />
+            </ListItemIcon>
+            <ListItemText primary={'Список дел'} />
+          </ListItem>
+        </Link>
+        <ListItem onClick={(e) => listItemSelectedHandler(e, 1)} button> 
           <ListItemIcon>
-            <DeleteIcon />
+            <CategoryIcon />
           </ListItemIcon>
-          <ListItemText primary={'Корзина'} />
+          <ListItemText primary={'Категории'} />
+          {collapseInfo.isCollapseOpen ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
-      </Link>
-    </List>
-  </>
+        <Collapse in={collapseInfo.isCollapseOpen} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            <Categories data={categories} history={history} classes={classes} />
+            <ListItem className={classes.addCategoryItem}>
+              <IconButton onClick={() => handleOpenModal()} aria-label="add">
+                <AddIcon />
+              </IconButton>
+            </ListItem>
+          </List>
+        </Collapse>
+        <Divider />
+        <Link className={classes.link} to='/trash'>
+          <ListItem selected={history.location.pathname === '/trash'} button> 
+            <ListItemIcon>
+              <DeleteIcon />
+            </ListItemIcon>
+            <ListItemText primary={'Корзина'} />
+          </ListItem>
+        </Link>
+      </List>
+    </>
   )
 }
 
