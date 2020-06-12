@@ -13,11 +13,11 @@ const UpdateTodoModal = ({ isModalOpen, handleCloseModal, selectedTodo, setSelec
     const data = {
       title: elements.title.value,
       description: elements.description.value,
-      category: elements.category.value,
+      categoryId: elements.category.value,
       deadline: elements.deadline.value
     }
     handleCloseModal()
-    console.log('Request on update:', data)
+    console.log('Request on update todo:', data)
   }
 
   const handleFieldChange = e => {
@@ -75,7 +75,7 @@ const UpdateTodoModal = ({ isModalOpen, handleCloseModal, selectedTodo, setSelec
                 onChange={handleFieldChange}
                 label="Категория"
               >
-                {categories.map((category, i) => <MenuItem key={i} value={category._id.$oid}>{category._id.$oid}</MenuItem>)}
+                {categories.map((category, i) => <MenuItem key={i} value={category._id.$oid}>{category.title}</MenuItem>)}
               </Select>
             </FormControl>
             <TextField

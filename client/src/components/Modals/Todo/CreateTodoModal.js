@@ -20,7 +20,7 @@ const CreateTodoModal = ({ isModalOpen, handleCloseModal }) => {
     const data = {
       title: elements.title.value,
       description: elements.description.value,
-      category: elements.category.value,
+      categoryId: elements.category.value,
       deadline: elements.deadline.value
     }
     handleCloseModal()
@@ -87,7 +87,7 @@ const CreateTodoModal = ({ isModalOpen, handleCloseModal }) => {
                 onChange={handleFieldChange}
                 label="Категория"
               >
-                {categories.map((category, i) => <MenuItem key={i} value={category._id.$oid}>{category._id.$oid}</MenuItem>)}
+                {categories.map((category, i) => <MenuItem key={i} value={category._id.$oid}>{category.title}</MenuItem>)}
               </Select>
             </FormControl>
             <TextField

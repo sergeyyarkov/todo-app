@@ -7,6 +7,9 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import AlarmIcon from '@material-ui/icons/Alarm';
 import EditIcon from '@material-ui/icons/Edit';
 
+
+import categories from '../../db/categories.json'
+
 const useStyles = makeStyles((theme) => ({
   alarmIcon: {
     marginRight: 10
@@ -62,7 +65,7 @@ const Todos = ({ data, fromTrashContainer }) => {
           <Card>
             <CardContent>
               <Typography className={classes.cardCategoryHeading} color="textSecondary" gutterBottom>
-                CategoryId: {todo.categoryId}
+                {categories.find(category => category._id.$oid === todo.categoryId).title}
                 <span className={classes.cardAlarm}>
                   <AlarmIcon className={classes.alarmIcon} color='action' />
                   {todo.deadline}
