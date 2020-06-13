@@ -1,44 +1,17 @@
 import React from 'react';
+import useStyles from './styles'
 import UpdateTodoModal from '../Modals/Todo/UpdateTodoModal'
 import DeleteTodoDialog from '../Dialogs/Todo/DeleteTodoDialog'
 import DeleteTodoСompletelyDialog from '../Dialogs/Todo/DeleteTodoСompletelyDialog'
 import RestoreTodoDialog from '../Dialogs/Todo/RestoreTodoDialog'
-import { Card, CardActions, CardContent, Typography, Grid, IconButton, makeStyles } from '@material-ui/core'
+import { Card, CardActions, CardContent, Typography, Grid, IconButton } from '@material-ui/core'
 
 import RestoreIcon from '@material-ui/icons/Restore';
 import DeleteIcon from '@material-ui/icons/Delete'
 import AlarmIcon from '@material-ui/icons/Alarm';
 import EditIcon from '@material-ui/icons/Edit';
 
-
 import categories from '../../db/categories.json'
-
-const useStyles = makeStyles((theme) => ({
-  alarmIcon: {
-    marginRight: 10
-  },
-  cardActions: {
-    justifyContent: 'flex-end'
-  },
-  cardHeading: {
-    marginBottom: 10
-  },
-  cardCategoryHeading: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    fontSize: 14
-  },
-  cardAlarm: {
-    display: 'flex',
-    alignItems: 'center'
-  },
-  fab: {
-    position: 'fixed',
-    margin: 30,
-    bottom: theme.spacing(2),
-    right: theme.spacing(2),
-  },
-}))
 
 const Todos = ({ data, fromTrashContainer }) => {
   const classes = useStyles()
@@ -93,10 +66,16 @@ const Todos = ({ data, fromTrashContainer }) => {
 
   return (
     <>
-      {!fromTrashContainer ? <UpdateTodoModal isModalOpen={isModalOpen} handleOpenModal={handleOpenModal} handleCloseModal={handleCloseModal} selectedTodo={selectedTodo} setSelectedTodo={setSelectedTodo} /> : null}
-      {!fromTrashContainer ? <DeleteTodoDialog isOpenDialog={isOpenDialog} handleCloseDialog={handleCloseDialog} selectedTodo={selectedTodo} /> : null}
-      {fromTrashContainer ? <DeleteTodoСompletelyDialog isOpenDialog={isOpenDialog} handleCloseDialog={handleCloseDialog} selectedTodo={selectedTodo} /> : null}
-      {fromTrashContainer ? <RestoreTodoDialog isOpenDialog={isOpenRestoreDialog} handleCloseDialog={handleCloseRestoreDialog} selectedTodo={selectedTodo} /> : null}
+      {!fromTrashContainer 
+        ? <>
+            <UpdateTodoModal isModalOpen={isModalOpen} handleOpenModal={handleOpenModal} handleCloseModal={handleCloseModal} selectedTodo={selectedTodo} setSelectedTodo={setSelectedTodo} />
+            <DeleteTodoDialog isOpenDialog={isOpenDialog} handleCloseDialog={handleCloseDialog} selectedTodo={selectedTodo} />
+          </>
+        : <>
+            <DeleteTodoСompletelyDialog isOpenDialog={isOpenDialog} handleCloseDialog={handleCloseDialog} selectedTodo={selectedTodo} />
+            <RestoreTodoDialog isOpenDialog={isOpenRestoreDialog} handleCloseDialog={handleCloseRestoreDialog} selectedTodo={selectedTodo} />
+          </>
+      }
       {data.map((todo, i) => 
         <Grid key={i} item xs={12} md={4} lg={3}>
           <Card>

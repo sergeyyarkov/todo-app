@@ -1,26 +1,16 @@
 import React from 'react'
+import useStyles from './styles'
 import NavContent from './NavContent/NavContent'
 import CreateCategoryModal from '../Modals/Category/CreateCategoryModal'
-import { Drawer, Hidden, makeStyles, useTheme } from '@material-ui/core';
-
-const useStyles = makeStyles((theme) => ({
-  drawer: {
-    [theme.breakpoints.up('sm')]: {
-      width: 240,
-      flexShrink: 0,
-    },
-  },
-  drawerPaper: {
-    width: 240,
-  },
-}));
+import { Drawer, Hidden, useTheme } from '@material-ui/core';
 
 const Nav = ({ window, mobileOpen, handleDrawerToggle, history }) => {
-  const classes = useStyles();
+  const classes = useStyles()
   const theme = useTheme();
   const container = window !== undefined ? () => window().document.body : undefined;
-
+  
   const [isModalOpen, setIsModalOpen] = React.useState(false)
+
   const handleCloseModal = () => setIsModalOpen(false)
   const handleOpenModal = () => setIsModalOpen(true)
 
@@ -46,13 +36,7 @@ const Nav = ({ window, mobileOpen, handleDrawerToggle, history }) => {
           </Drawer>
         </Hidden>
         <Hidden xsDown implementation="css">
-          <Drawer
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            variant="permanent"
-            open
-          >
+          <Drawer classes={{paper: classes.drawerPaper}} variant="permanent" open>
             <NavContent handleOpenModal={handleOpenModal} history={history} />
           </Drawer>
         </Hidden>

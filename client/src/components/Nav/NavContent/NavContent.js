@@ -1,8 +1,9 @@
 import React from 'react';
+import useStyles from '../styles'
 import Categories from '../../Categories/Categories'
 import { Link } from 'react-router-dom'
+import { Divider, List, ListItemIcon, ListItemText, Collapse, ListItem, IconButton, Typography } from '@material-ui/core'
 import MuiLink from '@material-ui/core/Link';
-import { Divider, List, ListItemIcon, ListItemText, Collapse, ListItem, IconButton, Typography, makeStyles } from '@material-ui/core'
 
 import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
 import CategoryIcon from '@material-ui/icons/Category';
@@ -14,49 +15,12 @@ import ExpandMore from '@material-ui/icons/ExpandMore'
 
 import categories from '../../../db/categories.json'
 
-const useStyles = makeStyles((theme) => ({
-  navHeading: {
-    padding: '10px 0px 10px 16px',
-    minHeight: 64,
-    display: 'flex',
-    alignItems: 'center',
-    color: 'rgba(255, 255, 255, 0.7)'
-  },
-  githubIcon: {
-    marginLeft: 10
-  },
-  author: {
-    display: 'flex',
-    alignItems: 'center',
-    marginTop: 10
-  },
-  nested: {
-    paddingLeft: theme.spacing(4)
-  },
-  addCategoryItem: {
-    display: 'flex',
-    justifyContent: 'center'
-  },
-  link: {
-    textDecoration: 'none',
-    color: '#fff'
-  }
-}))
-
 const NavContent = ({ history, handleOpenModal }) => {
-  const classes = useStyles()
-  const [collapseInfo, setCollapseInfo] = React.useState({
-    idCollapse: 0,
-    isCollapseOpen: false,
-  })
-
-  const listItemSelectedHandler = (e, index) => {
-    setCollapseInfo({
-      idCollapse: index,
-      isCollapseOpen: !collapseInfo.isCollapseOpen
-    })
-  }
-
+  const classes = useStyles() 
+  const [collapseInfo, setCollapseInfo] = React.useState({ idCollapse: 0, isCollapseOpen: false, })
+  
+  const listItemSelectedHandler = (e, index) => setCollapseInfo({ idCollapse: index, isCollapseOpen: !collapseInfo.isCollapseOpen })
+  
   return (
     <>
       <div className={classes.navHeading}>

@@ -1,34 +1,13 @@
 import React from 'react';
 import Nav from '../Nav/Nav'
-import { AppBar, IconButton, Toolbar, Typography, makeStyles } from '@material-ui/core'
+import useStyles from './styles'
+import { AppBar, IconButton, Toolbar, Typography } from '@material-ui/core'
 
 import MenuIcon from '@material-ui/icons/Menu';
 import CategoryIcon from '@material-ui/icons/Category';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ErrorIcon from '@material-ui/icons/Error';
 import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
-
-const useStyles = makeStyles((theme) => ({
-  pageHeading: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  pageHeadingImg: {
-    marginRight: 10
-  },
-  appBar: {
-    [theme.breakpoints.up('sm')]: {
-      width: `calc(100% - 240px)`,
-      marginLeft: 240,
-    },
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
-      display: 'none',
-    },
-  },
-}));
 
 const renderHeading = (history, classes) => {
   const { pathname } = history.location
@@ -48,7 +27,7 @@ const renderHeading = (history, classes) => {
 }
 
 const Header = ({ history }) => {
-  const classes = useStyles();
+  const classes = useStyles()
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
