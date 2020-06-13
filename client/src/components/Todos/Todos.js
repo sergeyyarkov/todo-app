@@ -2,6 +2,7 @@ import React from 'react';
 import UpdateTodoModal from '../Modals/Todo/UpdateTodoModal'
 import DeleteTodoDialog from '../Dialogs/Todo/DeleteTodoDialog'
 import DeleteTodoСompletelyDialog from '../Dialogs/Todo/DeleteTodoСompletelyDialog'
+import RestoreTodoDialog from '../Dialogs/Todo/RestoreTodoDialog'
 import { Card, CardActions, CardContent, Typography, Grid, IconButton, makeStyles } from '@material-ui/core'
 
 import RestoreIcon from '@material-ui/icons/Restore';
@@ -49,14 +50,18 @@ const Todos = ({ data, fromTrashContainer }) => {
   })
   const [isModalOpen, setIsModalOpen] = React.useState(false)
   const [isOpenDialog, setIsOpenDialog] = React.useState(false);
+  const [isOpenRestoreDialog, setIsOpenRestoreDialog] = React.useState(false)
+
   const handleOpenModal = todo => {
-    setSelectedTodo({
+    const selectedTodo = {
       id: todo._id.$oid,
       title: todo.title,
       description: todo.description,
       category: todo.categoryId,
       deadline: todo.deadline
-    })
+    }
+
+    setSelectedTodo(selectedTodo)
     setIsModalOpen(true)
   }
   const handleCloseModal = () => setIsModalOpen(false)
@@ -73,11 +78,25 @@ const Todos = ({ data, fromTrashContainer }) => {
   }
   const handleCloseDialog = () =>  setIsOpenDialog(false)
 
+  const handleOpenRestoreDialog = todo => {
+    setSelectedTodo({
+      id: todo._id.$oid,
+      title: todo.title,
+      description: todo.description,
+      category: todo.categoryId,
+      deadline: todo.deadline
+    })
+    setIsOpenRestoreDialog(true)
+  }
+
+  const handleCloseRestoreDialog = () => setIsOpenRestoreDialog(false)
+
   return (
     <>
       {!fromTrashContainer ? <UpdateTodoModal isModalOpen={isModalOpen} handleOpenModal={handleOpenModal} handleCloseModal={handleCloseModal} selectedTodo={selectedTodo} setSelectedTodo={setSelectedTodo} /> : null}
       {!fromTrashContainer ? <DeleteTodoDialog isOpenDialog={isOpenDialog} handleCloseDialog={handleCloseDialog} selectedTodo={selectedTodo} /> : null}
       {fromTrashContainer ? <DeleteTodoСompletelyDialog isOpenDialog={isOpenDialog} handleCloseDialog={handleCloseDialog} selectedTodo={selectedTodo} /> : null}
+      {fromTrashContainer ? <RestoreTodoDialog isOpenDialog={isOpenRestoreDialog} handleCloseDialog={handleCloseRestoreDialog} selectedTodo={selectedTodo} /> : null}
       {data.map((todo, i) => 
         <Grid key={i} item xs={12} md={4} lg={3}>
           <Card>
@@ -101,7 +120,7 @@ const Todos = ({ data, fromTrashContainer }) => {
                 ? <IconButton onClick={() => handleOpenModal(todo)} aria-label="update">
                     <EditIcon />
                   </IconButton> 
-                : <IconButton aria-label="restore">
+                : <IconButton onClick={() => handleOpenRestoreDialog(todo)} aria-label="restore">
                     <RestoreIcon />
                   </IconButton> 
                }

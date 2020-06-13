@@ -31,7 +31,7 @@ const DeleteTodoСompletelyDialog = ({ isOpenDialog, handleCloseDialog, selected
           <Button onClick={handleCloseDialog} color="default">
             Отменить
           </Button>
-          <Button onClick={handleClickDelete} color="secondary" autoFocus>
+          <Button onClick={handleClickDelete} color="secondary">
             Удалить
           </Button>
         </DialogActions>

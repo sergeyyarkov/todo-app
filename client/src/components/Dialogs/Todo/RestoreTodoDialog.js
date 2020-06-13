@@ -1,12 +1,13 @@
 import React from 'react';
 import useStyles from '../styles'
-import WarningIcon from '@material-ui/icons/Warning';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core'
+
+import RestoreIcon from '@material-ui/icons/Restore';
 
 const DeleteTodoDialog = ({ isOpenDialog, handleCloseDialog, selectedTodo }) => {
   const classes = useStyles()
   const handleClickDelete = () => {
-    console.log('Request on delete todo:', selectedTodo.id, selectedTodo.title)
+    console.log('Request on restore todo:', selectedTodo.id, selectedTodo.title)
     handleCloseDialog()
   }
 
@@ -19,20 +20,20 @@ const DeleteTodoDialog = ({ isOpenDialog, handleCloseDialog, selectedTodo }) => 
           aria-describedby="alert-dialog-description"
         >
         <DialogTitle id="alert-dialog-title">
-          <WarningIcon className={classes.headingIcon} />
-          Удалить запись?
+          <RestoreIcon className={classes.headingIcon} />
+          Восстановить запись?
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Запись будет перемещена в корзину, вы сможете её легко восстановить.
+            Запись будет восстановлена в прежнее состояние.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDialog} color="default">
             Отменить
           </Button>
-          <Button onClick={handleClickDelete} color="secondary">
-            Удалить
+          <Button onClick={handleClickDelete} color="primary">
+            Восстановить
           </Button>
         </DialogActions>
       </Dialog>
