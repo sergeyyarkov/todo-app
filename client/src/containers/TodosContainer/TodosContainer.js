@@ -13,7 +13,7 @@ const TodosContainer = () => {
   return (
     <>
       <CreateTodoModal isModalOpen={isModalOpen} handleCloseModal={handleCloseModal} />
-      <Fab typeIcon='add' color="secondary" size='large' ariaLabel="add" handleOpenModal={handleOpenModal} />
+      <Fab typeIcon='add' color="secondary" size='large' ariaLabel="add" onClick={handleOpenModal} />
       <Grid container spacing={2}>
           <Grid item xs={12}>
             <Typography>

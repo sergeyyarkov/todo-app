@@ -1,5 +1,7 @@
 import React from 'react';
 import UpdateTodoModal from '../Modals/Todo/UpdateTodoModal'
+import DeleteTodoDialog from '../Dialogs/Todo/DeleteTodoDialog'
+import DeleteTodoСompletelyDialog from '../Dialogs/Todo/DeleteTodoСompletelyDialog'
 import { Card, CardActions, CardContent, Typography, Grid, IconButton, makeStyles } from '@material-ui/core'
 
 import RestoreIcon from '@material-ui/icons/Restore';
@@ -46,6 +48,7 @@ const Todos = ({ data, fromTrashContainer }) => {
     deadline: ''
   })
   const [isModalOpen, setIsModalOpen] = React.useState(false)
+  const [isOpenDialog, setIsOpenDialog] = React.useState(false);
   const handleOpenModal = todo => {
     setSelectedTodo({
       id: todo._id.$oid,
@@ -58,9 +61,23 @@ const Todos = ({ data, fromTrashContainer }) => {
   }
   const handleCloseModal = () => setIsModalOpen(false)
 
+  const handleOpenDialog = todo => {
+    setSelectedTodo({
+      id: todo._id.$oid,
+      title: todo.title,
+      description: todo.description,
+      category: todo.categoryId,
+      deadline: todo.deadline
+    })
+    setIsOpenDialog(true)
+  }
+  const handleCloseDialog = () =>  setIsOpenDialog(false)
+
   return (
     <>
       {!fromTrashContainer ? <UpdateTodoModal isModalOpen={isModalOpen} handleOpenModal={handleOpenModal} handleCloseModal={handleCloseModal} selectedTodo={selectedTodo} setSelectedTodo={setSelectedTodo} /> : null}
+      {!fromTrashContainer ? <DeleteTodoDialog isOpenDialog={isOpenDialog} handleCloseDialog={handleCloseDialog} selectedTodo={selectedTodo} /> : null}
+      {fromTrashContainer ? <DeleteTodoСompletelyDialog isOpenDialog={isOpenDialog} handleCloseDialog={handleCloseDialog} selectedTodo={selectedTodo} /> : null}
       {data.map((todo, i) => 
         <Grid key={i} item xs={12} md={4} lg={3}>
           <Card>
@@ -88,7 +105,7 @@ const Todos = ({ data, fromTrashContainer }) => {
                     <RestoreIcon />
                   </IconButton> 
                }
-              <IconButton aria-label="delete" color='secondary'>
+              <IconButton onClick={() => handleOpenDialog(todo)} aria-label="delete" color='secondary'>
                 <DeleteIcon />
               </IconButton>
             </CardActions>
