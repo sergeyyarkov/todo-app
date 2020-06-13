@@ -10,19 +10,19 @@ const UpdateCategoryModal = ({ isModalOpen, handleCloseModal, selectedCategory, 
     e.preventDefault()
     const elements = e.target.elements
     const data = {
-      id: elements.title.value,
+      id: selectedCategory.id,
+      title: elements.title.value
     }
     handleCloseModal()
     console.log('Request on update category:', data)
   }
 
-  console.log(selectedCategory)
-
   const handleFieldChange = e => {
     const target = e.target
-    // setSelectedCategory({
-    //   id: target.name === 'title' ? target.value : selectedTodo.title,
-    // })
+    setSelectedCategory({
+      id: selectedCategory.id,
+      title: target.name === 'title' ? target.value : selectedCategory.title
+    })
   }
 
   return (
@@ -41,7 +41,7 @@ const UpdateCategoryModal = ({ isModalOpen, handleCloseModal, selectedCategory, 
               placeholder='Название вашей категории'
               variant="outlined"
               className={classes.textField}
-              value={selectedCategory.id}
+              value={selectedCategory.title}
               onChange={handleFieldChange}
               InputLabelProps={{
                 shrink: true,

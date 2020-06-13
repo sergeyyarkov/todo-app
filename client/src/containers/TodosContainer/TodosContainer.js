@@ -4,7 +4,7 @@ import Todos from '../../components/Todos/Todos'
 import CreateTodoModal from '../../components/Modals/Todo/CreateTodoModal'
 import { Typography, Grid } from '@material-ui/core'
 
-import todosData from '../../db/todos.json'
+import todos from '../../db/todos.json'
 
 const TodosContainer = () => {
   const [isModalOpen, setIsModalOpen] = React.useState(false)
@@ -20,7 +20,7 @@ const TodosContainer = () => {
               Создавайте, редактируйте или удаляйте ваши повседневные дела.
             </Typography> 
           </Grid>     
-          <Todos data={todosData} />
+          <Todos data={todos} />
       </Grid>
     </>
   )

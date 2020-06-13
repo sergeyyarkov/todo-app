@@ -11,6 +11,7 @@ const UpdateTodoModal = ({ isModalOpen, handleCloseModal, selectedTodo, setSelec
     e.preventDefault()
     const elements = e.target.elements
     const data = {
+      id: selectedTodo.id,
       title: elements.title.value,
       description: elements.description.value,
       categoryId: elements.category.value,
@@ -23,6 +24,7 @@ const UpdateTodoModal = ({ isModalOpen, handleCloseModal, selectedTodo, setSelec
   const handleFieldChange = e => {
     const target = e.target
     setSelectedTodo({
+      id: selectedTodo.id,
       title: target.name === 'title' ? target.value : selectedTodo.title,
       description: target.name === 'description' ? target.value : selectedTodo.description,
       category: target.name === 'category' ? target.value : selectedTodo.category,

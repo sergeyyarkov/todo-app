@@ -91,7 +91,7 @@ const NavContent = ({ history, handleOpenModal }) => {
           <List component="div" disablePadding>
             <Categories data={categories} history={history} classes={classes} />
             <ListItem className={classes.addCategoryItem}>
-              <IconButton onClick={() => handleOpenModal()} aria-label="add">
+              <IconButton onClick={handleOpenModal} aria-label="add">
                 <AddIcon />
               </IconButton>
             </ListItem>

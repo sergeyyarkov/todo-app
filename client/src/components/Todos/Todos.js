@@ -48,6 +48,7 @@ const Todos = ({ data, fromTrashContainer }) => {
   const [isModalOpen, setIsModalOpen] = React.useState(false)
   const handleOpenModal = todo => {
     setSelectedTodo({
+      id: todo._id.$oid,
       title: todo.title,
       description: todo.description,
       category: todo.categoryId,

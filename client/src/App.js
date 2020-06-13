@@ -13,7 +13,7 @@ const App = ({ history }) => {
       <CssBaseLine />
       <Layout history={history}>
         <Switch>
-          <Route history={history} exact path='/category/:slug' component={CategoryContainer} />
+          <Route history={history} exact path='/category/:id' component={CategoryContainer} />
           <Route history={history} exact path='/trash' component={TrashContainer} />
           <Route history={history} exact path='/' component={TodosContainer} />
           <Route path='/404' component={NotFoundContainer} />
