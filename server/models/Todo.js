@@ -5,7 +5,6 @@ const todoSchema = mongoose.Schema({
   description: String,
   createdAt: String,
   updatedAt: String,
-  status: String,
   deadline: String,
   categoryId: String,
 })

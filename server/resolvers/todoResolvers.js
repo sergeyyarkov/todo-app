@@ -12,7 +12,6 @@ const todoResolvers = {
         description,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
-        status: 'open',
         deadline,
         categoryId,
       })
@@ -22,7 +21,7 @@ const todoResolvers = {
       const deletedTodo = await Todo.findByIdAndRemove(id)
       return deletedTodo
     },
-    updateTodo: (_, { id, title, description, status, deadline, categoryId }) => Todo.findByIdAndUpdate(id, { $set: { title, description, updatedAt: new Date().toISOString(), status, deadline, categoryId } }, { new: true }),
+    updateTodo: (_, { id, title, description, deadline, categoryId }) => Todo.findByIdAndUpdate(id, { $set: { title, description, updatedAt: new Date().toISOString(), deadline, categoryId } }, { new: true }),
   },
   Todo: {
     category: ({ categoryId }) => Category.findById(categoryId),

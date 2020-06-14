@@ -6,10 +6,9 @@ const categoryResolvers = {
     category: (_, { id }) => Category.findById(id),
   },
   Mutation: {
-    createCategory: (_, { title, description }) => {
+    createCategory: (_, { title }) => {
       const category = new Category({
         title,
-        description,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       })
@@ -19,7 +18,7 @@ const categoryResolvers = {
       const deletedCategory = await Category.findByIdAndRemove(id)
       return deletedCategory
     },
-    updateCategory: (_, { id, title, description }) => Category.findByIdAndUpdate(id, { $set: { title, description, updatedAt: new Date().toISOString() } }, { new: true })
+    updateCategory: (_, { id, title }) => Category.findByIdAndUpdate(id, { $set: { title, updatedAt: new Date().toISOString() } }, { new: true })
   },
   Category: {
     todos: ({ id }) => Todo.find({ categoryId: id }),

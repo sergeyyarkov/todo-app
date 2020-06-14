@@ -7,7 +7,6 @@ const todoType = gql`
     description: String
     createdAt: String
     updatedAt: String
-    status: String
     deadline: String
     categoryId: String
     category: Category

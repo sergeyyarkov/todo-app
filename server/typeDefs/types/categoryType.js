@@ -4,7 +4,6 @@ const categoryType = gql`
   type Category {
     id: ID
     title: String
-    description: String
     createdAt: String
     updatedAt: String
     todos: [Todo]

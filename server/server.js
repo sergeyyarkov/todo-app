@@ -8,7 +8,17 @@ const port = config.get('port')
 
 const startServer = async () => {
   try {
-    const server = new ApolloServer({ typeDefs, resolvers })
+    const server = new ApolloServer({
+      typeDefs,
+      resolvers,
+      // context: (integrationContext) => {
+      //   const query = integrationContext.req.query.query || integrationContext.req.body.query || '';
+      //   console.log(query.length)
+      //   if (query.length > 500) {
+      //     throw new Error('Query too large');
+      //   }
+      // },
+    });
     await mongoose.connect(config.get('db'), {
       useNewUrlParser: true,
       useUnifiedTopology: true,
