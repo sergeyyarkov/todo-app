@@ -12,8 +12,9 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import ExpandLess from '@material-ui/icons/ExpandLess'
 import ExpandMore from '@material-ui/icons/ExpandMore'
+import { Query } from 'react-apollo'
 
-import categories from '../../../db/categories.json'
+import GET_CATEGORIES from '../../../apollo/queries/categories/categories'
 
 const NavContent = ({ history, handleOpenModal }) => {
   const classes = useStyles() 
@@ -53,7 +54,13 @@ const NavContent = ({ history, handleOpenModal }) => {
         </ListItem>
         <Collapse in={collapseInfo.isCollapseOpen} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            <Categories data={categories} history={history} classes={classes} />
+            <Query query={GET_CATEGORIES}>
+              {({ loading, error, data }) => {
+                if (loading) return null;
+                if (error) return `Error! ${error}`;
+                return <Categories data={data.categories} history={history} classes={classes} />
+              }}
+            </Query>
             <ListItem className={classes.addCategoryItem}>
               <IconButton onClick={handleOpenModal} aria-label="add">
                 <AddIcon />

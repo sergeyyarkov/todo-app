@@ -3,7 +3,11 @@ import useStyles from '../styles'
 import { Dialog, DialogContent, DialogTitle, DialogActions, Button, TextField, Select, MenuItem, InputLabel, FormControl } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
 
-import categories from '../../../db/categories.json'
+import { useQuery, useMutation } from '@apollo/react-hooks'
+
+import CREATE_TODO from '../../../apollo/mutations/todos/createTodo';
+import GET_TODOS from '../../../apollo/queries/todos/todos';
+import GET_CATEGORIES from '../../../apollo/queries/categories/categories'
 
 const CreateTodoModal = ({ isModalOpen, handleCloseModal }) => {
   const classes = useStyles()
@@ -14,23 +18,39 @@ const CreateTodoModal = ({ isModalOpen, handleCloseModal }) => {
     deadline: ''
   })
 
-  const handleFormSubmit = e => {
-    e.preventDefault()
-    const elements = e.target.elements
-    const data = {
-      title: elements.title.value,
-      description: elements.description.value,
-      categoryId: elements.category.value,
-      deadline: elements.deadline.value
+  // create todo mutation
+  const [createTodo] = useMutation(CREATE_TODO, { 
+    update(cache, { data: { createTodo } }) {
+      const { todos } = cache.readQuery({ query: GET_TODOS })
+      cache.writeQuery({
+        query: GET_TODOS,
+        data: { todos: todos.concat([createTodo]) }
+      });
     }
-    handleCloseModal()
-    setFieldsData({
-      title: '',
-      description: '',
-      category: '',
-      deadline: ''
-    })
-    console.log('Request on create todo:', data)
+   })
+
+  const handleFormSubmit = e => {
+    try {
+      e.preventDefault()
+      const elements = e.target.elements
+      createTodo({
+        variables: {
+          title: elements.title.value,
+          description: elements.description.value,
+          categoryId: elements.category.value,
+          deadline: elements.deadline.value
+        }
+      })
+      handleCloseModal()
+      setFieldsData({
+        title: '',
+        description: '',
+        category: '',
+        deadline: ''
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const handleFieldChange = e => {
@@ -42,6 +62,11 @@ const CreateTodoModal = ({ isModalOpen, handleCloseModal }) => {
       deadline: target.name === 'deadline' ? target.value : fieldsData.deadline
     })
   }
+
+  const { loading, error, data } = useQuery(GET_CATEGORIES);
+
+  if (loading) return null;
+  if (error) return `Error! ${error.message}`;
 
   return (
     <div>
@@ -87,7 +112,7 @@ const CreateTodoModal = ({ isModalOpen, handleCloseModal }) => {
                 onChange={handleFieldChange}
                 label="Категория"
               >
-                {categories.map((category, i) => <MenuItem key={i} value={category._id.$oid}>{category.title}</MenuItem>)}
+                {data.categories.map((category, i) => <MenuItem key={i} value={category.id}>{category.title}</MenuItem>)}
               </Select>
             </FormControl>
             <TextField

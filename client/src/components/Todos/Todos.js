@@ -11,8 +11,6 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import AlarmIcon from '@material-ui/icons/Alarm';
 import EditIcon from '@material-ui/icons/Edit';
 
-import categories from '../../db/categories.json'
-
 const Todos = ({ data, fromTrashContainer }) => {
   const classes = useStyles()
   const [selectedTodo, setSelectedTodo] = React.useState({
@@ -27,10 +25,10 @@ const Todos = ({ data, fromTrashContainer }) => {
 
   const handleOpenModal = todo => {
     const selectedTodo = {
-      id: todo._id.$oid,
+      id: todo.id,
       title: todo.title,
       description: todo.description,
-      category: todo.categoryId,
+      category: todo.category,
       deadline: todo.deadline
     }
 
@@ -41,10 +39,10 @@ const Todos = ({ data, fromTrashContainer }) => {
 
   const handleOpenDialog = todo => {
     setSelectedTodo({
-      id: todo._id.$oid,
+      id: todo.id,
       title: todo.title,
       description: todo.description,
-      category: todo.categoryId,
+      category: todo.category,
       deadline: todo.deadline
     })
     setIsOpenDialog(true)
@@ -53,10 +51,10 @@ const Todos = ({ data, fromTrashContainer }) => {
 
   const handleOpenRestoreDialog = todo => {
     setSelectedTodo({
-      id: todo._id.$oid,
+      id: todo.id,
       title: todo.title,
       description: todo.description,
-      category: todo.categoryId,
+      category: todo.category,
       deadline: todo.deadline
     })
     setIsOpenRestoreDialog(true)
@@ -81,7 +79,7 @@ const Todos = ({ data, fromTrashContainer }) => {
           <Card>
             <CardContent>
               <Typography className={classes.cardCategoryHeading} color="textSecondary" gutterBottom>
-                {categories.find(category => category._id.$oid === todo.categoryId).title}
+                {todo.category.title}
                 <span className={classes.cardAlarm}>
                   <AlarmIcon className={classes.alarmIcon} color='action' />
                   {todo.deadline}
