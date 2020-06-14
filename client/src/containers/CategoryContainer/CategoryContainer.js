@@ -4,24 +4,19 @@ import UpdateCategoryModal from '../../components/Modals/Category/UpdateCategory
 import DeleteCategoryDialog from '../../components/Dialogs/Category/DeleteCategoryDialog'
 import Fab from '../../components/Fab/Fab'
 import { Grid, Typography, LinearProgress } from '@material-ui/core'
-
-import categories from '../../db/categories.json'
-
 import { Query } from 'react-apollo'
 import { useParams } from 'react-router-dom'
 
 import GET_TODOS_BY_CATEGORY from '../../apollo/queries/todos/todosByCategory'
 
 const Category = () => {
-  const findCategoryById = id => categories.find(category => category._id.$oid === id)
-
   const { id } = useParams()
   const [isModalOpen, setIsModalOpen] = React.useState(false)
   const [isOpenDialog, setIsOpenDialog] = React.useState(false)
   const [selectedCategory, setSelectedCategory] = React.useState({ id: '', title: '' })
 
   React.useEffect(() => {
-    setSelectedCategory({ id, title: findCategoryById(id).title })
+    setSelectedCategory({ id, title: '' })
   }, [id]);
   
   const handleOpenModal = () => setIsModalOpen(true)
@@ -35,6 +30,7 @@ const Category = () => {
       {({ loading, error, data }) => {
         if (loading) return <LinearProgress />
         if (error) return `Error! ${error.message}`;
+        if (data.category.todos <= 0) return 'В этой категории задач пока что нету'
         return (
           <>
             <UpdateCategoryModal isModalOpen={isModalOpen} handleCloseModal={handleCloseModal} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />

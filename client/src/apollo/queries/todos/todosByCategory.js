@@ -8,7 +8,6 @@ query getTodosByCategory($id: ID!) {
       id
       title
       description
-      status
       deadline
       category {
         id

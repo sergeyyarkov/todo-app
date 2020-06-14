@@ -3,24 +3,35 @@ import useStyles from '../styles'
 import { Dialog, DialogContent, DialogTitle, DialogActions, Button, TextField, Select, MenuItem, InputLabel, FormControl } from '@material-ui/core'
 import EditIcon from '@material-ui/icons/Edit'
 
-import { Query } from 'react-apollo'
-import { useQuery } from '@apollo/react-hooks'
+// import { Query } from 'react-apollo'
+import { useQuery, useMutation } from '@apollo/react-hooks'
+
 import GET_CATEGORIES from '../../../apollo/queries/categories/categories'
+import UPDATE_TODO from '../../../apollo/mutations/todos/updateTodo';
 
 const UpdateTodoModal = ({ isModalOpen, handleCloseModal, selectedTodo, setSelectedTodo }) => {
   const classes = useStyles()
+
+  // update todo mutation
+  const [updateTodo] = useMutation(UPDATE_TODO)
+
   const handleFormSubmit = e => {
-    e.preventDefault()
-    const elements = e.target.elements
-    const data = {
-      id: selectedTodo.id,
-      title: elements.title.value,
-      description: elements.description.value,
-      categoryId: elements.category.value,
-      deadline: elements.deadline.value
+    try {
+      e.preventDefault()
+      const elements = e.target.elements
+      updateTodo({
+        variables: {
+          id: selectedTodo.id,
+          title: elements.title.value,
+          description: elements.description.value,
+          deadline: elements.deadline.value,
+          categoryId: elements.category.value
+        }
+      })
+      handleCloseModal()
+    } catch (error) {
+      console.log(error)
     }
-    handleCloseModal()
-    console.log('Request on update todo:', data)
   }
 
   const handleFieldChange = e => {

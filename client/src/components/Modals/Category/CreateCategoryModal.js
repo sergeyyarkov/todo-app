@@ -1,26 +1,37 @@
 import React from 'react';
 import useStyles from '../styles'
 import { Dialog, DialogContent, DialogTitle, DialogActions, Button, TextField } from '@material-ui/core'
-
+import { useMutation } from '@apollo/react-hooks'
 import CategoryIcon from '@material-ui/icons/Category';
+
+import CREATE_CATEGORY from '../../../apollo/mutations/categories/createCategory'
 
 const CreateCategoryModal = ({ isModalOpen, handleCloseModal }) => {
   const classes = useStyles()
+
+  // create catehory mutation
+  const [updateTodo] = useMutation(CREATE_CATEGORY)
+
   const [fieldsData, setFieldsData] = React.useState({
     title: '',
   })
 
   const handleFormSubmit = e => {
-    e.preventDefault()
-    const elements = e.target.elements
-    const data = {
-      title: elements.title.value,
+    try {
+      e.preventDefault()
+      const elements = e.target.elements
+      updateTodo({
+        variables: {
+          title: elements.title.value
+        }
+      })
+      handleCloseModal()
+      setFieldsData({
+        title: '',
+      })
+    } catch (error) {
+      console.log(error)
     }
-    handleCloseModal()
-    setFieldsData({
-      title: '',
-    })
-    console.log('Request on create category:', data)
   }
 
   const handleFieldChange = e => {

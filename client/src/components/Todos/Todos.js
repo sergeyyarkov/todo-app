@@ -82,7 +82,7 @@ const Todos = ({ data, fromTrashContainer }) => {
                 {todo.category.title}
                 <span className={classes.cardAlarm}>
                   <AlarmIcon className={classes.alarmIcon} color='action' />
-                  {todo.deadline}
+                  {new Date(todo.deadline).toLocaleString()}
                 </span>
               </Typography>
               <Typography className={classes.cardHeading} variant="h5" component="h2">

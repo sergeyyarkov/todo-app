@@ -6,7 +6,6 @@ const CREATE_TODO = gql`
       id
       title
       description
-      status
       deadline
       category {
         id

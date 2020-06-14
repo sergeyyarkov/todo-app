@@ -1,8 +1,8 @@
 import gql from 'graphql-tag'
 
-const GET_TODOS = gql`
-  query getTodos {
-    todos {
+const DELETE_TODO = gql`
+  mutation DeleteTodo($id: ID!) {
+    deleteTodo(id: $id) {
       id
       title
       description
@@ -13,6 +13,6 @@ const GET_TODOS = gql`
       }
     }
   }
-`;
+`
 
-export default GET_TODOS
+export default DELETE_TODO
