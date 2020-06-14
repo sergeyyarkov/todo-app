@@ -28,7 +28,7 @@ const Todos = ({ data, fromTrashContainer }) => {
       id: todo.id,
       title: todo.title,
       description: todo.description,
-      category: todo.category,
+      category: todo.category.id,
       deadline: todo.deadline
     }
 

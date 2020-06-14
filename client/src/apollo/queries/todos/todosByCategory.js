@@ -3,7 +3,6 @@ import gql from 'graphql-tag'
 const GET_TODOS_BY_CATEGORY = gql`
 query getTodosByCategory($id: ID!) {
   category(id: $id) {
-    id
     title
     todos {
       id
@@ -12,6 +11,7 @@ query getTodosByCategory($id: ID!) {
       status
       deadline
       category {
+        id
         title
       }
     }

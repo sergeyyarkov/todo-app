@@ -9,6 +9,7 @@ const GET_TODOS = gql`
       status
       deadline
       category {
+        id
         title
       }
     }

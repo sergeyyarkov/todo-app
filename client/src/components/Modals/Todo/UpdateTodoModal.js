@@ -3,7 +3,9 @@ import useStyles from '../styles'
 import { Dialog, DialogContent, DialogTitle, DialogActions, Button, TextField, Select, MenuItem, InputLabel, FormControl } from '@material-ui/core'
 import EditIcon from '@material-ui/icons/Edit'
 
-import categories from '../../../db/categories.json'
+import { Query } from 'react-apollo'
+import { useQuery } from '@apollo/react-hooks'
+import GET_CATEGORIES from '../../../apollo/queries/categories/categories'
 
 const UpdateTodoModal = ({ isModalOpen, handleCloseModal, selectedTodo, setSelectedTodo }) => {
   const classes = useStyles()
@@ -32,6 +34,9 @@ const UpdateTodoModal = ({ isModalOpen, handleCloseModal, selectedTodo, setSelec
     })
   }
 
+  const { loading, error, data } = useQuery(GET_CATEGORIES)
+  if (loading) return null
+  if (error) return `Error: ${error}`
   return (
     <div>
       <Dialog fullWidth={true} open={isModalOpen} onClose={handleCloseModal} color='default'>
@@ -77,7 +82,7 @@ const UpdateTodoModal = ({ isModalOpen, handleCloseModal, selectedTodo, setSelec
                 onChange={handleFieldChange}
                 label="Категория"
               >
-                {categories.map((category, i) => <MenuItem key={i} value={category._id.$oid}>{category.title}</MenuItem>)}
+                {data.categories.map((category, i) => <MenuItem key={i} value={category.id}>{category.title}</MenuItem>)}
               </Select>
             </FormControl>
             <TextField
