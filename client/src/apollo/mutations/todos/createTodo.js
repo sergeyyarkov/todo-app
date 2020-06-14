@@ -9,6 +9,7 @@ const CREATE_TODO = gql`
       status
       deadline
       category {
+        id
         title
       }
     }
