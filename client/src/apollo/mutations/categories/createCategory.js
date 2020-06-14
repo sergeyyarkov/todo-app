@@ -4,6 +4,7 @@ const CREATE_CATEGORY = gql`
   mutation createCategory($title: String!) {
     createCategory(title: $title) {
       id
+      title
     }
   } 
 `

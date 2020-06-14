@@ -30,7 +30,6 @@ const Category = () => {
       {({ loading, error, data }) => {
         if (loading) return <LinearProgress />
         if (error) return `Error! ${error.message}`;
-        if (data.category.todos <= 0) return 'В этой категории задач пока что нету'
         return (
           <>
             <UpdateCategoryModal isModalOpen={isModalOpen} handleCloseModal={handleCloseModal} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
@@ -43,8 +42,7 @@ const Category = () => {
                   Сортируйте свои повседневные дела используя категории.
                 </Typography>
               </Grid>
-              {/* Здесь берем значение slug из query и передаем полученные данные в prop data !!!!  */}
-              <Todos data={data.category.todos} />
+              {data.category.todos <= 0 ? <Grid item xs={12}><Typography>В этой категории задач пока что нету</Typography></Grid> : <Todos data={data.category.todos} />}
             </Grid>
           </>
         )

@@ -1,15 +1,43 @@
 import React from 'react';
+import { useHistory } from "react-router-dom";
 import useStyles from '../styles'
 import WarningIcon from '@material-ui/icons/Warning';
 import { useParams } from 'react-router-dom'
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core'
+import { useMutation } from '@apollo/react-hooks'
+
+import GET_CATEGORIES from '../../../apollo/queries/categories/categories'
+import DELETE_CATEGORY from '../../../apollo/mutations/categories/deleteCategoty'
 
 const DeleteCategoryDialog = ({ isOpenDialog, handleCloseDialog }) => {
   const classes = useStyles()
+  const history = useHistory();
   const { id } = useParams()
+
+  const [deleteCategory] = useMutation(DELETE_CATEGORY, { 
+    update(cache, { data: { deleteCategory } }) {
+      const { categories } = cache.readQuery({ query: GET_CATEGORIES })
+      console.log(categories, deleteCategory)
+      cache.writeQuery({
+        query: GET_CATEGORIES,
+        data: { categories: categories.filter(category => category.id !== deleteCategory.id) }
+      });
+    }
+   })
+
   const handleClickDelete = () => {
-    console.log('Request on delete category:', id)
-    handleCloseDialog()
+    try {
+      deleteCategory({
+        variables: {
+          id
+        }
+      })
+      handleCloseDialog()
+      history.push("/");
+    } catch (error) {
+      console.log(error)
+    }
+    
   }
 
   return (

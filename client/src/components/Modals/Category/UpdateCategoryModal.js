@@ -1,20 +1,31 @@
 import React from 'react';
 import useStyles from '../styles'
 import { Dialog, DialogContent, DialogTitle, DialogActions, Button, TextField } from '@material-ui/core'
+import { useMutation } from '@apollo/react-hooks'
 import EditIcon from '@material-ui/icons/Edit'
 
+import UPDATE_CATEGORY from '../../../apollo/mutations/categories/updateCategory'
 
 const UpdateCategoryModal = ({ isModalOpen, handleCloseModal, selectedCategory, setSelectedCategory }) => {
   const classes = useStyles()
+
+  // update category mutation
+  const [updateCategory] = useMutation(UPDATE_CATEGORY)
+
   const handleFormSubmit = e => {
-    e.preventDefault()
-    const elements = e.target.elements
-    const data = {
-      id: selectedCategory.id,
-      title: elements.title.value
+    try {
+      e.preventDefault()
+      const elements = e.target.elements
+      updateCategory({
+        variables: {
+          id: selectedCategory.id,
+          title: elements.title.value
+        }
+      })
+      handleCloseModal()
+    } catch (error) {
+      console.log(error)
     }
-    handleCloseModal()
-    console.log('Request on update category:', data)
   }
 
   const handleFieldChange = e => {

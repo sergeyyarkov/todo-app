@@ -5,12 +5,21 @@ import { useMutation } from '@apollo/react-hooks'
 import CategoryIcon from '@material-ui/icons/Category';
 
 import CREATE_CATEGORY from '../../../apollo/mutations/categories/createCategory'
+import GET_CATEGORIES from '../../../apollo/queries/categories/categories';
 
 const CreateCategoryModal = ({ isModalOpen, handleCloseModal }) => {
   const classes = useStyles()
 
-  // create catehory mutation
-  const [updateTodo] = useMutation(CREATE_CATEGORY)
+  // create category mutation
+  const [createCategory] = useMutation(CREATE_CATEGORY, { 
+    update(cache, { data: { createCategory } }) {
+      const { categories } = cache.readQuery({ query: GET_CATEGORIES })
+      cache.writeQuery({
+        query: GET_CATEGORIES,
+        data: { categories: categories.concat([createCategory]) }
+      });
+    }
+   })
 
   const [fieldsData, setFieldsData] = React.useState({
     title: '',
@@ -20,7 +29,7 @@ const CreateCategoryModal = ({ isModalOpen, handleCloseModal }) => {
     try {
       e.preventDefault()
       const elements = e.target.elements
-      updateTodo({
+      createCategory({
         variables: {
           title: elements.title.value
         }
