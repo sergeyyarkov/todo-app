@@ -8,7 +8,6 @@ import MuiLink from '@material-ui/core/Link';
 import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
 import CategoryIcon from '@material-ui/icons/Category';
 import AddIcon from '@material-ui/icons/Add';
-import DeleteIcon from '@material-ui/icons/Delete';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import ExpandLess from '@material-ui/icons/ExpandLess'
 import ExpandMore from '@material-ui/icons/ExpandMore'
@@ -69,14 +68,6 @@ const NavContent = ({ history, handleOpenModal }) => {
           </List>
         </Collapse>
         <Divider />
-        <Link className={classes.link} to='/trash'>
-          <ListItem selected={history.location.pathname === '/trash'} button> 
-            <ListItemIcon>
-              <DeleteIcon />
-            </ListItemIcon>
-            <ListItemText primary={'Корзина'} />
-          </ListItem>
-        </Link>
       </List>
     </>
   )

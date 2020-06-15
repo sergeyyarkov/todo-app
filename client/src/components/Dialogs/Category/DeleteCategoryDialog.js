@@ -17,7 +17,6 @@ const DeleteCategoryDialog = ({ isOpenDialog, handleCloseDialog }) => {
   const [deleteCategory] = useMutation(DELETE_CATEGORY, { 
     update(cache, { data: { deleteCategory } }) {
       const { categories } = cache.readQuery({ query: GET_CATEGORIES })
-      console.log(categories, deleteCategory)
       cache.writeQuery({
         query: GET_CATEGORIES,
         data: { categories: categories.filter(category => category.id !== deleteCategory.id) }
