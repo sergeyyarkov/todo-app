@@ -20,7 +20,7 @@ const DeleteCategoryDialog = ({ isOpenDialog, handleCloseDialog }) => {
       cache.writeQuery({
         query: GET_CATEGORIES,
         data: { categories: categories.filter(category => category.id !== deleteCategory.id) }
-      });
+      })
     }
    })
 

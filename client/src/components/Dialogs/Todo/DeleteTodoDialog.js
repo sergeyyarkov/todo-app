@@ -5,6 +5,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogContentText, Dialog
 import { useMutation } from '@apollo/react-hooks'
 
 import GET_TODOS from '../../../apollo/queries/todos/todos'
+import GET_TODOS_BY_CATEGORY from '../../../apollo/queries/todos/todosByCategory'
 import DELETE_TODO from '../../../apollo/mutations/todos/deleteTodo'
 
 const DeleteTodoDialog = ({ isOpenDialog, handleCloseDialog, selectedTodo }) => {
@@ -12,11 +13,30 @@ const DeleteTodoDialog = ({ isOpenDialog, handleCloseDialog, selectedTodo }) => 
 
   const [deleteTodo] = useMutation(DELETE_TODO, { 
     update(cache, { data: { deleteTodo } }) {
-      const { todos } = cache.readQuery({ query: GET_TODOS })
-      cache.writeQuery({
-        query: GET_TODOS,
-        data: { todos: todos.filter(todo => todo.id !== deleteTodo.id) }
-      });
+
+      /* 
+        та же самая проблема, когда у нас нету изначально весь список todos, 
+        мы не можем обновить кэш и получим invariant Violation !!!
+      */
+      try {
+        try {
+          const { todos } = cache.readQuery({ query: GET_TODOS })
+          cache.writeQuery({
+            query: GET_TODOS,
+            data: { todos: todos.filter(todo => todo.id !== deleteTodo.id) }
+          })
+        } catch {
+          console.log()
+        }
+        const { category } = cache.readQuery({ query: GET_TODOS_BY_CATEGORY, variables: { id: deleteTodo.category.id } })
+        cache.writeQuery({
+          query: GET_TODOS_BY_CATEGORY,
+          variables: { id: deleteTodo.category.id },
+          data: { category: { title: category.title, todos: category.todos.filter(todo => todo.id !== deleteTodo.id), __typename: 'Category' } }
+        })
+      } catch {
+        return null
+      }
     }
    })
 

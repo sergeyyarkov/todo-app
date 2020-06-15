@@ -8,6 +8,7 @@ import { useMutation } from '@apollo/react-hooks'
 
 import CREATE_TODO from '../../../apollo/mutations/todos/createTodo';
 import GET_TODOS from '../../../apollo/queries/todos/todos';
+import GET_TODOS_BY_CATEGORY from '../../../apollo/queries/todos/todosByCategory'
 import GET_CATEGORIES from '../../../apollo/queries/categories/categories'
 
 const CreateTodoModal = ({ isModalOpen, handleCloseModal }) => {
@@ -27,6 +28,23 @@ const CreateTodoModal = ({ isModalOpen, handleCloseModal }) => {
         query: GET_TODOS,
         data: { todos: todos.concat([createTodo]) }
       });
+
+      /* 
+        здесь никак не обновить кэш когда нету загруженных изначально данных, 
+        поэтому получим invariant Violation !!!
+      */
+
+      /* запрос на обновление кэша при добавлении todo */
+      try {
+        const { category } = cache.readQuery({ query: GET_TODOS_BY_CATEGORY, variables: { id: fieldsData.category } })
+        cache.writeQuery({
+          query: GET_TODOS_BY_CATEGORY,
+          variables: { id: fieldsData.category },
+          data: { category: { title: category.title, todos: category.todos.concat([createTodo]), __typename: 'Category' } }
+        })
+      } catch {
+        return null
+      }      
     }
    })
 
