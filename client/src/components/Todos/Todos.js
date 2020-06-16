@@ -49,35 +49,41 @@ const Todos = ({ data }) => {
     <>
       <UpdateTodoModal isModalOpen={isModalOpen} handleOpenModal={handleOpenModal} handleCloseModal={handleCloseModal} selectedTodo={selectedTodo} setSelectedTodo={setSelectedTodo} />
       <DeleteTodoDialog isOpenDialog={isOpenDialog} handleCloseDialog={handleCloseDialog} selectedTodo={selectedTodo} />
-      {data.map((todo, i) => 
-        <Grid key={i} item xs={12} md={4} lg={3}>
-          <Card>
-            <CardContent>
-              <Typography className={classes.cardCategoryHeading} color="textSecondary" gutterBottom>
-                {todo.category.title}
-                <span className={classes.cardAlarm}>
-                  <AlarmIcon className={classes.alarmIcon} color='action' />
-                  {new Date(todo.deadline).toLocaleString()}
-                </span>
-              </Typography>
-              <Typography className={classes.cardHeading} variant="h5" component="h2">
-                {todo.title}
-              </Typography>
-              <Typography variant="body2" component="p">
-                {todo.description}
-              </Typography>
-            </CardContent>
-            <CardActions className={classes.cardActions}>
-                <IconButton onClick={() => handleOpenModal(todo)} aria-label="update">
-                  <EditIcon />
-                </IconButton> 
-              <IconButton onClick={() => handleOpenDialog(todo)} aria-label="delete" color='secondary'>
-                <DeleteIcon />
-              </IconButton>
-            </CardActions>
-          </Card>
-        </Grid>
-      )}
+      {data.map((todo, i) => {
+        if (todo.category) {
+           return (
+            <Grid key={i} item xs={12} md={4} lg={3}>
+            <Card>
+              <CardContent>
+                <Typography className={classes.cardCategoryHeading} color="textSecondary" gutterBottom>
+                  {todo.category.title}
+                  <span className={classes.cardAlarm}>
+                    <AlarmIcon className={classes.alarmIcon} color='action' />
+                    {new Date(todo.deadline).toLocaleString()}
+                  </span>
+                </Typography>
+                <Typography className={classes.cardHeading} variant="h5" component="h2">
+                  {todo.title}
+                </Typography>
+                <Typography variant="body2" component="p">
+                  {todo.description}
+                </Typography>
+              </CardContent>
+              <CardActions className={classes.cardActions}>
+                  <IconButton onClick={() => handleOpenModal(todo)} aria-label="update">
+                    <EditIcon />
+                  </IconButton> 
+                <IconButton onClick={() => handleOpenDialog(todo)} aria-label="delete" color='secondary'>
+                  <DeleteIcon />
+                </IconButton>
+              </CardActions>
+            </Card>
+          </Grid>
+           )
+        } else {
+          return null
+        }
+      })}
     </>
   )
 }
