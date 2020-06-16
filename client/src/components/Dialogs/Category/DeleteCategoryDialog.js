@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom'
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core'
 import { useMutation } from '@apollo/react-hooks'
 
+import GET_TODOS from '../../../apollo/queries/todos/todos'
 import GET_CATEGORIES from '../../../apollo/queries/categories/categories'
 import DELETE_CATEGORY from '../../../apollo/mutations/categories/deleteCategoty'
 
@@ -21,6 +22,16 @@ const DeleteCategoryDialog = ({ isOpenDialog, handleCloseDialog }) => {
         query: GET_CATEGORIES,
         data: { categories: categories.filter(category => category.id !== deleteCategory.id) }
       })
+
+      try {
+        const { todos } = cache.readQuery({ query: GET_TODOS })
+        cache.writeQuery({
+          query: GET_TODOS,
+          data: { todos: todos.filter(todo => todo.category.id !== deleteCategory.id) }
+        })
+      } catch {
+        return null
+      }
     }
    })
 

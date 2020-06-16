@@ -16,6 +16,8 @@ const categoryResolvers = {
     },
     deleteCategory: async (_, { id }) => {
       const deletedCategory = await Category.findByIdAndRemove(id)
+        await Todo.deleteMany({ categoryId: id })
+        
       return deletedCategory
     },
     updateCategory: (_, { id, title }) => Category.findByIdAndUpdate(id, { $set: { title, updatedAt: new Date().toISOString() } }, { new: true })
