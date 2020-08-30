@@ -29,12 +29,6 @@ const CreateTodoModal = ({ isModalOpen, handleCloseModal }) => {
         data: { todos: todos.concat([createTodo]) }
       });
 
-      /* 
-        здесь никак не обновить кэш когда нету загруженных изначально данных, 
-        поэтому получим invariant Violation !!!
-      */
-
-      /* запрос на обновление кэша при добавлении todo */
       try {
         const { category } = cache.readQuery({ query: GET_TODOS_BY_CATEGORY, variables: { id: fieldsData.category } })
         cache.writeQuery({
@@ -52,14 +46,20 @@ const CreateTodoModal = ({ isModalOpen, handleCloseModal }) => {
     try {
       e.preventDefault()
       const elements = e.target.elements
-      createTodo({
-        variables: {
-          title: elements.title.value,
-          description: elements.description.value,
-          categoryId: elements.category.value,
-          deadline: elements.deadline.value
-        }
-      })
+
+      if (!elements.title.value.trim() || !elements.description.value.trim() || !elements.category.value.trim() || !elements.deadline.value.trim()) {
+        window.alert('Проверьте правильность введенных данных!')
+        return
+      }
+
+       createTodo({
+         variables: {
+           title: elements.title.value.trim(),
+           description: elements.description.value.trim(),
+           categoryId: elements.category.value.trim(),
+           deadline: elements.deadline.value.trim()
+         }
+       })
       handleCloseModal()
       setFieldsData({
         title: '',
@@ -96,7 +96,7 @@ const CreateTodoModal = ({ isModalOpen, handleCloseModal }) => {
               </DialogTitle>
               <DialogContent>
                 <form onSubmit={handleFormSubmit} noValidate autoComplete="off" className={classes.form}>
-                  <TextField 
+                  <TextField
                     name='title'
                     label="Название вашей записи"
                     margin="normal"

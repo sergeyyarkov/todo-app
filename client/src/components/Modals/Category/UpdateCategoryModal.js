@@ -16,6 +16,12 @@ const UpdateCategoryModal = ({ isModalOpen, handleCloseModal, selectedCategory, 
     try {
       e.preventDefault()
       const elements = e.target.elements
+
+      if (!elements.title.value.trim()) {
+        window.alert('Проверьте правильность введенных данных!')
+        return
+      }
+
       updateCategory({
         variables: {
           id: selectedCategory.id,

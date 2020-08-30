@@ -13,11 +13,6 @@ const DeleteTodoDialog = ({ isOpenDialog, handleCloseDialog, selectedTodo }) => 
 
   const [deleteTodo] = useMutation(DELETE_TODO, { 
     update(cache, { data: { deleteTodo } }) {
-
-      /* 
-        та же самая проблема, когда у нас нету изначально весь список todos, 
-        мы не можем обновить кэш и получим invariant Violation !!!
-      */
       try {
         try {
           const { todos } = cache.readQuery({ query: GET_TODOS })

@@ -29,9 +29,15 @@ const CreateCategoryModal = ({ isModalOpen, handleCloseModal }) => {
     try {
       e.preventDefault()
       const elements = e.target.elements
+
+      if (!elements.title.value.trim()) {
+        window.alert('Проверьте правильность введенных данных!')
+        return
+      }
+
       createCategory({
         variables: {
-          title: elements.title.value
+          title: elements.title.value.trim()
         }
       })
       handleCloseModal()

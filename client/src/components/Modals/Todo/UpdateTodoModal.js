@@ -3,7 +3,6 @@ import useStyles from '../styles'
 import { Dialog, DialogContent, DialogTitle, DialogActions, Button, TextField, Select, MenuItem, InputLabel, FormControl } from '@material-ui/core'
 import EditIcon from '@material-ui/icons/Edit'
 
-// import { Query } from 'react-apollo'
 import { useQuery, useMutation } from '@apollo/react-hooks'
 
 import GET_CATEGORIES from '../../../apollo/queries/categories/categories'
@@ -19,6 +18,12 @@ const UpdateTodoModal = ({ isModalOpen, handleCloseModal, selectedTodo, setSelec
     try {
       e.preventDefault()
       const elements = e.target.elements
+
+      if (!elements.title.value.trim() || !elements.description.value.trim() || !elements.category.value.trim() || !elements.deadline.value.trim()) {
+        window.alert('Проверьте правильность введенных данных!')
+        return
+      }
+
       updateTodo({
         variables: {
           id: selectedTodo.id,
